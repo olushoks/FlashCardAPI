@@ -1,0 +1,36 @@
+{
+  "name": "flashcard",
+  "version": "1.0.0",
+  "description": "FlashCards for learning technologies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olushoks/FlashCardAPI.git"
+  },
+  "keywords": [
+    "Learning",
+    "Technologies",
+    "JavaScript",
+    "React",
+    "Programming",
+    "Developer"
+  ],
+  "author": "Olukayode Shokunbi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olushoks/FlashCardAPI/issues"
+  },
+  "homepage": "https://github.com/olushoks/FlashCardAPI#readme",
+  "dependencies": {
+    "config": "^3.3.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "mongoose": "^5.11.18",
+    "nodemon": "^2.0.7"
+  }
+}
