@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 // CARD SCHEMA
 const cardSchema = new mongoose.Schema({
-  question: { type: String, required: true, minlength: 1 },
+  question: { type: String, required: true, min: 1 },
   answer: { type: String, required: true, minlength: 1 },
   lastDateModfied: { type: Date, default: Date.now },
 });
@@ -10,11 +10,12 @@ const cardSchema = new mongoose.Schema({
 // CARD MODEL
 const Card = mongoose.model("Card", cardSchema);
 
+// VALIDATE USER DATA ACCURACY
 function validateCard(card) {
   const schema = Joi.object({
-    question: Joi.string().required().minlength(1),
-    answer: Joi.String().required().minlength(1),
-    lastDateModfied: Joi.Date().default(Date.now),
+    question: Joi.string().required().min(1),
+    answer: Joi.string().required().min(1),
+    lastDateModfied: Joi.date().default(Date.now),
   });
   return schema.validate(card);
 }
