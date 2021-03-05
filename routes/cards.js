@@ -23,7 +23,7 @@ router.get("/:id", async (req, res) => {
       return res
         .status(400)
         .send(
-          `${id} does not correspond to any existing card. Please provide a  valid ID`
+          `"${id}" does not correspond to any existing card. Please provide a  valid ID`
         );
 
     return res.send(card);
@@ -49,6 +49,38 @@ router.post("/", async (req, res) => {
     return res.send(card);
   } catch (error) {
     return res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
+// PUT REQUEST
+router.put("/:id", async (req, res) => {
+  try {
+    //get card from requests body
+    const id = req.params.id;
+
+    const { error } = validate(req.body);
+    if (error) res.status(400).send(error);
+
+    const card = await Card.findByIdAndUpdate(
+      id,
+      {
+        question: req.body.question,
+        answer: req.body.answer,
+      },
+      { new: true }
+    );
+
+    if (!card)
+      return res
+        .status(400)
+        .send(
+          `"${id}" does not correspond to any existing card. Please provide a  valid ID`
+        );
+
+    await card.save();
+    return res.send(card);
+  } catch (error) {
+    res.status(500).send(`Internal Server Error:  ${error}`);
   }
 });
 
