@@ -6,7 +6,7 @@ const cards = require("./routes/cards");
 connectDB();
 
 app.use(express.json());
-app.use("api/cards", cards);
+app.use("/api/cards", cards);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
