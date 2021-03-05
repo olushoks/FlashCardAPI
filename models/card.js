@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+
 // CARD SCHEMA
 const cardSchema = new mongoose.Schema({
   question: { type: String, required: true, min: 1 },
