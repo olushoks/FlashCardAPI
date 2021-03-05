@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
 // PUT REQUEST
 router.put("/:id", async (req, res) => {
   try {
-    //get card from requests body
+    //get card id from requests body
     const id = req.params.id;
 
     const { error } = validate(req.body);
@@ -81,6 +81,26 @@ router.put("/:id", async (req, res) => {
     return res.send(card);
   } catch (error) {
     res.status(500).send(`Internal Server Error:  ${error}`);
+  }
+});
+
+// DELETE REEQUEST
+router.delete("/:id", async (req, res) => {
+  try {
+    //get card id from requests body
+    const id = req.params.id;
+    const card = await Card.findByIdAndRemove(id);
+
+    if (!card)
+      return res
+        .status(400)
+        .send(
+          `"${id}" does not correspond to any existing card. Please provide a  valid ID`
+        );
+
+    return res.send(card);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${error}`);
   }
 });
 
