@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
-const { cardSchema } = require("./cards");
+const { cardSchema } = require("./card");
 
 // COLLECTION SCHEMA
 const collectionSchema = new mongoose.Schema({
