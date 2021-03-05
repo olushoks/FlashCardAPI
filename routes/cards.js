@@ -6,8 +6,8 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     const card = new Card({
-      question: "JS is acronym for?",
-      answer: "JavaScript",
+      question: req.body.question,
+      answer: req.body.answer,
     });
     await card.save();
     return res.send(card);
