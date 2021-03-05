@@ -1,7 +1,26 @@
-const { Collection } = require('../models/collection');
-const { Card, validate } = require('../models/card');
+const { Collection, validateCollection } = require('../models/collection');
+const { Card, validateCard } = require('../models/card');
 const express = require("express");
 const router = express.Router();
+
+// POST REQUEST --> Create A Collection
+router.post('/', async (req, res) => {
+    try {
+        const {error} = validateCollection(req.body);
+
+        if (error) return res.status(400).send(error);
+
+        const collection = new Collection({
+            title: req.body.title,
+        });
+
+        await collection.save();
+        return res.send(collection);
+        
+    } catch (error) {
+        return res.status(500).send(`Internal Error: ${error}`);
+    }
+})
 
 // POST REQUEST --> ADD CARD TO A COLLECTION
 router.post('/:collectionId/cards/:cardId', async (req, res) => {

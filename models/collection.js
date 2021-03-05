@@ -22,4 +22,4 @@ function validateCollection(collection) {
 
 exports.collectionSchema = collectionSchema;
 exports.Collection = Collection;
-exports.validate = validateCollection;
+exports.validateCollection = validateCollection;

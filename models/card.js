@@ -23,4 +23,4 @@ function validateCard(card) {
 
 exports.cardSchema = cardSchema;
 exports.Card = Card;
-exports.validate = validateCard;
+exports.validateCard = validateCard;

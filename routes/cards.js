@@ -1,4 +1,4 @@
-const { Card, validate } = require("../models/card");
+const { Card, validateCard } = require("../models/card");
 const express = require("express");
 const router = express.Router();
 
@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
 // POST REQUEST
 router.post("/", async (req, res) => {
   try {
-    const { error } = validate(req.body);
+    const { error } = validateCard(req.body);
 
     if (error) return res.status(400).send(error);
 
@@ -58,7 +58,7 @@ router.put("/:id", async (req, res) => {
     //get card id from requests body
     const id = req.params.id;
 
-    const { error } = validate(req.body);
+    const { error } = validateCard(req.body);
     if (error) res.status(400).send(error);
 
     const card = await Card.findByIdAndUpdate(
