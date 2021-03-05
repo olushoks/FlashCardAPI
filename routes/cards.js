@@ -2,7 +2,17 @@ const { Card, validate } = require("../models/card");
 const express = require("express");
 const router = express.Router();
 
-// POST HANDLER
+// GET REQUEST
+router.get("/", async (req, res) => {
+  try {
+    const cards = await Card.find();
+    return res.send(cards);
+  } catch (error) {
+    return res.status(500).send(`Internal Server Error: ${err}`);
+  }
+});
+
+// POST REQUEST
 router.post("/", async (req, res) => {
   try {
     const { error } = validate(req.body);
