@@ -12,6 +12,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET BY ID
+router.get("/:id", async (req, res) => {
+  try {
+    // get card id from request body
+    const id = req.params.id;
+    const card = await Card.findById(id);
+
+    if (!card)
+      return res
+        .status(400)
+        .send(
+          `${id} does not correspond to any existing card. Please provide a  valid ID`
+        );
+
+    return res.send(card);
+  } catch (error) {
+    res.status(500).send(`Internal Server Error: ${error}`);
+  }
+});
+
 // POST REQUEST
 router.post("/", async (req, res) => {
   try {
