@@ -11,6 +11,19 @@ router.get('/', async (req, res) => {
     } catch (error) {
         return res.status(500).send(`Internal Error: ${error}`)
     }
+});
+
+// GET SPECIFIC COLLECTION
+router.get('/:collectionId', async (req, res) => {
+    try {
+        const collection = await Collection.findById(req.params.collectionId);
+        //CHECK IF COLLECTION EXISTS
+        if (!collection) return res.status(400).send(`"${id}" does not correspond to any existing collection. Please provide a  valid ID`);
+
+        return res.send(collection);
+    } catch (error) {
+        return res.status(500).send(`Internal Error: ${error}`)
+    }
 })
 
 // POST REQUEST --> CREATE A NEW COLLECTION

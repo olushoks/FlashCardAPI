@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
 // GET BY ID
 router.get("/:id", async (req, res) => {
   try {
-    // get card id from request body
     const id = req.params.id;
     const card = await Card.findById(id);
 
