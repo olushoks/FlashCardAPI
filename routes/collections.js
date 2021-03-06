@@ -24,7 +24,24 @@ router.get('/:collectionId', async (req, res) => {
     } catch (error) {
         return res.status(500).send(`Internal Error: ${error}`)
     }
-})
+});
+
+// GET SPECIFIC CARD IN A SPECIFIC COLLECTION
+router.get('/:collectionId/cards/:cardId', async (req, res) => {
+    try {
+        const collection = await Collection.findById(req.params.collectionId);
+        //CHECK IF COLLECTION EXISTS
+        if (!collection) return res.status(400).send(`"${id}" does not correspond to any existing collection. Please provide a  valid ID`);
+
+        const card = collection.cards.id(req.params.cardId);
+        //CHECK IF COLLECTION EXISTS
+        if (!card) return res.status(400).send(`"${id}" does not correspond to any existing card within this collection. Please provide a  valid ID`);
+
+        return res.send(card);
+    } catch (error) {
+        return res.status(500).send(`Internal Error: ${error}`)
+    }
+});
 
 // POST REQUEST --> CREATE A NEW COLLECTION
 router.post("/", async (req, res) => {
