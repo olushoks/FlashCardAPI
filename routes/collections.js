@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 
-// POST REQUEST --> Create A Collection
+// POST REQUEST --> CREATE A NEW COLLECTION
 router.post("/", async (req, res) => {
     try {
         const {error} = validateCollection(req.body);
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-// POST REQUEST --> ADD CARD TO A COLLECTION
+// POST REQUEST --> ADD CARD DOCUMENT TO A COLLECTION
 router.post("/:collectionId/cards/:cardId", async (req, res) => {
     try {
         const collection = await Collection.findById(req.params.collectionId);
@@ -48,7 +48,7 @@ router.post("/:collectionId/cards/:cardId", async (req, res) => {
     }
 });
 
-// PUT REQUEST
+// PUT REQUEST --> EDIT A CARD SUBDOCUMENT WITH A COLLECTION
 router.put("/:collectionId/cards/:cardId", async (req, res) => {
     try {
         const { error } = validateCard(req.body);
@@ -72,6 +72,25 @@ router.put("/:collectionId/cards/:cardId", async (req, res) => {
         await collection.save();
         return res.send(card);
 
+    } catch (error) {
+        return res.status(500).send(`Internal Server Error: ${error}`);
+    }
+});
+
+router.delete("/:collectionId/cards/:cardId", async (req, res) => {
+    try {
+        const collection = await Collection.findById(req.params.collectionId);
+        // CHECK IF COLLECTION EXISTS
+        if (!collection) return res.status(400).send(`"${id}" does not correspond to any existing collection. Please provide a  valid ID`);
+        
+        const card = collection.cards.id(req.params.cardId);
+        // CHECK IF CARD EXISTS
+        if (!card) return res.status(400).send(`"${id}" does not correspond to any existing card in this collection. Please provide a  valid ID`);
+
+        // REMOVE CARD DOCUMENT FROM COLLECTION
+        await card.remove();
+        collection.save();
+        return res.send(card);
     } catch (error) {
         return res.status(500).send(`Internal Server Error: ${error}`);
     }
