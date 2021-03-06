@@ -15,7 +15,7 @@ const Collection = mongoose.model("Collection", collectionSchema);
 function validateCollection(collection) {
   const schema = Joi.object({
     title: Joi.string().required().min(1).max(15),
-    lastDateModifed: Joi.date().default(Date.now),
+    lastDateModified: Joi.date().default(Date.now),
   });
   return schema.validate(collection);
 }
