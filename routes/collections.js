@@ -3,7 +3,15 @@ const { Card, validateCard } = require('../models/card');
 const express = require("express");
 const router = express.Router();
 
-
+// GET ALL COLLECTIONS
+router.get('/', async (req, res) => {
+    try {
+        const collections = await Collection.find();
+        return res.send(collections);
+    } catch (error) {
+        return res.status(500).send(`Internal Error: ${error}`)
+    }
+})
 
 // POST REQUEST --> CREATE A NEW COLLECTION
 router.post("/", async (req, res) => {
